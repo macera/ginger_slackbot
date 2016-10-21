@@ -1,9 +1,10 @@
 require 'slack'
 require './lib/ginger'
+require 'dotenv'
 
-TOKEN = 'your token'
+Dotenv.load
 
-Slack.configure {|config| config.token = TOKEN }
+Slack.configure {|config| config.token = ENV["BOT_TOKEN"] }
 client = Slack.realtime
 
 client.on :hello do
@@ -17,7 +18,7 @@ client.on :message do |data|
     text.slice!('check:')
     result = Ginger.check(text.strip)
     params = {
-      token: TOKEN,
+      token: ENV["BOT_TOKEN"],
       channel: data['channel'],
       text: "<@#{data['user']}> #{result}",
     }

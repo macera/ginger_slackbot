@@ -3,14 +3,17 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'dotenv'
 
 class Ginger
 
   def self.check(text)
+    Dotenv.load
+
     text.freeze
 
-    url = 'http://services.gingersoftware.com/Ginger/correct/json/GingerTheText'
-    api_key  = '6ae0c3a0-afdc-4532-a810-82ded0054236'
+    url = ENV["API_URL"]
+    api_key  = ENV["API_KEY"]
 
     params = Hash.new
     params.store("lang", "US")

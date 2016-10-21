@@ -1,0 +1,76 @@
+Usage
+
+ローカルで動かす
+
+# Ruby入っていることが前提です。
+
+# slack botのtokenを作成する
+
+# プロジェクトを作る
+$ mkdir slack_bot
+$ cd slack_bot
+
+# Gemfileを作成
+$ bundle init
+
+# Gemfile修正
+'slack-api'と'dotenv'を追加
+
+# Gemfile.lock作成
+$ bundle install --path vendor/bundler
+
+# rubyファイルを作成する
+$ touch bot.rb
+
+# .envファイルを作成して、tokenなどを格納する(公開したくない文字列とか)
+
+# Slack APIのラッパーgemを使って、
+   * slack clientのメッセージを取得する
+   * slackのチャットにメッセージを送る
+  ※ 最初に作ったtokenを使う
+
+# 起動
+$ bundle exec ruby bot.rb
+
+# botをチャンネルに招待
+
+# slackでメッセージを送ってみる
+
+
+herokuで動かす
+
+# herokuのアカウント作成
+
+# Procfileを作る
+bot: bundle exec ruby bot.rb
+
+# Git
+$ git init
+
+$ touch .gitignore
+```
+.bundle/
+.env
+/vendor/bundler
+```
+
+//多分使わない
+//$ gibo ruby > .gitignore
+//(brew install gibo)
+
+$ git add .
+$ git commit -m "first commit"
+
+# herokuにログイン
+$ heroku login
+
+# remote の設定に heroku を追加します
+$ heroku create testbot
+
+# プロジェクトを heroku に push します
+$ git push heroku master
+
+# 環境変数の設定
+$ heroku config:add TOKEN=your_token
+...
+$ heroku ps:scale bot=1
